@@ -7,6 +7,7 @@ import { GreeterComponent} from './greeter/greeter.component';
 import { MathCalculator1Component } from './math-calculator/mathCalculator1.component';
 import { MathCalculator2Component } from './math-calculator/mathCalculator2.component';
 import { MathResultComponent } from './math-calculator/mathResult.component';
+import { ListerComponent } from './listing/lister.component';
 
 
 @NgModule({
@@ -16,6 +17,7 @@ import { MathResultComponent } from './math-calculator/mathResult.component';
     , MathCalculator1Component
     , MathCalculator2Component
     , MathResultComponent
+    , ListerComponent
   ],
   imports: [
     BrowserModule

@@ -1,27 +1,16 @@
 {
   "bugs": [
     {
-      "id": 9,
-      "name": "Test 1",
+      "id": 1,
+      "name": "Server communication failure",
       "isClosed": false,
       "createdAt": "2017-10-11T10:29:27.340Z"
     },
     {
-      "id": 10,
-      "name": "A dummy bug",
+      "id": 2,
+      "name": "User actions not recognized",
       "isClosed": true,
       "createdAt": "2017-11-01T11:29:19.160Z"
-    },
-    {
-      "id": 11,
-      "name": "f asdjlfdasj fl;asdfdasf das",
-      "isClosed": false
-    },
-    {
-      "id": 12,
-      "name": "Status indicator is not indicating status",
-      "isClosed": true,
-      "createdAt": "2017-11-05T11:36:14.562Z"
     }
   ],
   "projects": [

@@ -8,7 +8,8 @@ import { BugServerService } from './services/bugServer.serivce';
 })
 export class BugTrackerComponent implements OnInit{
 	bugs : IBug[] = [];
-	
+	sortBugBy : string = '';
+	sortBugDescending : boolean = false;
 
 
 	constructor(private bugServer : BugServerService){

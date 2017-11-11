@@ -20,8 +20,16 @@ export class BugTrackerComponent{
 		bug.isClosed = !bug.isClosed;
 	}
 
+	private isOpen(bug){
+		return !bug.isClosed;
+	}
+
 	removeClosed(){
-		//fill in the blanks
+		this.bugs = this.bugs.filter(this.isOpen);
+	}
+
+	getClosedCount(){
+		return this.bugs.reduce((prevResult, bug) => bug.isClosed ? ++prevResult : prevResult, 0)
 	}
 
 }

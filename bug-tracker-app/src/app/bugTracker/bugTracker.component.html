@@ -1,7 +1,7 @@
 <h1>Bug Tracker</h1>
   <hr>
   <section class="stats">
-    <span class="closed">[Assignment]</span>
+    <span class="closed">{{getClosedCount()}}</span>
     <span> / </span>
     <span>{{bugs.length}}</span>
   </section>
@@ -23,11 +23,12 @@
     <ol>
       <li *ngFor="let bug of bugs">
         <span class="bugname" 
+          title = "{{bug.name}}"
           (click)="toggle(bug)"
           [ngClass]="{closed : bug.isClosed}"
-          >{{bug | json}}</span>
+          >{{bug.name | trimText}}</span>
         <div class="datetime">[Created At]</div>
       </li>
     </ol>
-    <input type="button" value="Remove Closed">
+    <input type="button" value="Remove Closed" (click)="removeClosed()">
   </section>

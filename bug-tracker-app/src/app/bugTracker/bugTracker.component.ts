@@ -8,7 +8,7 @@ import { BugStorageService } from './services/bugStorage.service';
 })
 export class BugTrackerComponent implements OnInit{
 	bugs : IBug[] = [];
-	bugName : string = '';
+	
 
 	//private bugOperations : BugOperationsService = null;
 
@@ -29,9 +29,7 @@ export class BugTrackerComponent implements OnInit{
 		this.bugs = this.bugStorage.getAll();
 	}
 
-	addNew() : void {
-		let newBug : IBug = this.bugStorage.addNew(this.bugName);
-		//this.bugs.push(newBug);
+	onNewBugCreated(newBug : IBug){
 		this.bugs = [...this.bugs, newBug];
 	}
 

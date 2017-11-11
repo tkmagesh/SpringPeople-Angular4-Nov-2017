@@ -1,5 +1,5 @@
 import { Component, Output, EventEmitter } from '@angular/core';
-import { BugServerService } from '../services/bugServer.serivce';
+import { BugStorageService } from '../services/bugStorage.service';
 import { IBug } from '../models/IBug';
 
 @Component({
@@ -18,12 +18,13 @@ export class BugEditComponent{
 	@Output()
 	newBugEvt : EventEmitter<IBug> = new EventEmitter<IBug>();
 
-	constructor(private bugServer : BugServerService){
+	constructor(private bugStorage : BugStorageService){
 
 	}
 	addNew() : void {
-		this.bugServer
-			.addNew(this.bugName)
-			.subscribe(newBug => this.newBugEvt.emit(newBug));
+		let bug : IBug = this.bugStorage.addNew(this.bugName);
+		//this.bugs.push(newBug);
+		//this.bugs = [...this.bugs, newBug];
+		this.newBugEvt.emit(bug);
 	}
 }

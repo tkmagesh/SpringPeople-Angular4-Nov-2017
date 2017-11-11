@@ -1,16 +1,16 @@
 {
   "bugs": [
     {
-      "id": 1,
-      "name": "Server communication failure",
-      "isClosed": false,
-      "createdAt": "2017-10-11T10:29:27.340Z"
-    },
-    {
       "id": 2,
       "name": "User actions not recognized",
-      "isClosed": true,
+      "isClosed": false,
       "createdAt": "2017-11-01T11:29:19.160Z"
+    },
+    {
+      "id": 3,
+      "name": "Unable to add a new bug",
+      "isClosed": false,
+      "createdAt": "2017-11-11T10:51:24.082Z"
     }
   ],
   "projects": [

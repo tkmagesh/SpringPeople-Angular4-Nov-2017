@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IBug } from './models/IBug';
-import { BugStorageService } from './services/bugStorage.service';
+import { BugServerService } from './services/bugServer.serivce';
 
 @Component({
 	selector : 'bug-tracker',
@@ -10,23 +10,17 @@ export class BugTrackerComponent implements OnInit{
 	bugs : IBug[] = [];
 	
 
-	//private bugOperations : BugOperationsService = null;
 
-	/*private loadBugs(){
-		this.bugs.push({ name : 'Server communication failure', isClosed : false});
-		this.bugs.push({ name : 'User actions not recognized', isClosed : false});
-		this.bugs.push({ name : 'Application not responding', isClosed : true});
-		this.bugs.push({ name : 'Data integrity checks failed', isClosed : true});
-		this.bugs.push({ name : 'Authorization checks not stable', isClosed : false});
-	}*/
+	constructor(private bugServer : BugServerService){
 
-	constructor(private bugStorage : BugStorageService){
-		//this.bugOperations = bugOperations;
-		//this.loadBugs();
 	}
 
 	ngOnInit(){
-		this.bugs = this.bugStorage.getAll();
+		this.bugServer
+			.getAll()
+			.subscribe(bugs => this.bugs = bugs);
+
+		//this.bugs = this.bugStorage.getAll();
 	}
 
 	onNewBugCreated(newBug : IBug){
@@ -34,8 +28,9 @@ export class BugTrackerComponent implements OnInit{
 	}
 
 	toggle(bugToToggle : IBug) : void {
-		let toggledBug = this.bugStorage.toggle(bugToToggle);
-		this.bugs = this.bugs.map(bug => bug === bugToToggle ? toggledBug : bug);
+		this.bugServer
+			.toggle(bugToToggle)
+			.subscribe(result => this.bugs = this.bugs.map(bug => bug.id === result.id ? result : bug));
 	}
 
 	private isOpen(bug){
@@ -45,8 +40,10 @@ export class BugTrackerComponent implements OnInit{
 	removeClosed() : void {
 		this.bugs
 			.filter(bug => bug.isClosed)
-			.forEach(bug => this.bugStorage.remove(bug));
-		this.bugs = this.bugs.filter(this.isOpen);
+			.forEach((bug, index) => 
+				this.bugServer
+					.remove(bug)
+					.subscribe(_ => this.bugs.splice(index, 1));
 	}
 
 	

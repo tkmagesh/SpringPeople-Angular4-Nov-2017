@@ -7,29 +7,41 @@ import { IBug } from './models/IBug';
 })
 export class BugTrackerComponent{
 	bugs : IBug[] = [];
+	bugName : string = '';
 
-	addNew(bugName : string){
-		let newBug : IBug = {
-			name : bugName,
-			isClosed : false
-		};
-		this.bugs.push(newBug);
+	private loadBugs(){
+		this.bugs.push({ name : 'Server communication failure', isClosed : false});
+		this.bugs.push({ name : 'User actions not recognized', isClosed : false});
+		this.bugs.push({ name : 'Application not responding', isClosed : true});
+		this.bugs.push({ name : 'Data integrity checks failed', isClosed : true});
+		this.bugs.push({ name : 'Authorization checks not stable', isClosed : false});
 	}
 
-	toggle(bug : IBug){
-		bug.isClosed = !bug.isClosed;
+	constructor(){
+		this.loadBugs();
+	}
+
+	addNew() : void {
+		let newBug : IBug = {
+			name : this.bugName,
+			isClosed : false
+		};
+		//this.bugs.push(newBug);
+		this.bugs = [...this.bugs, newBug];
+	}
+
+	toggle(bugToToggle : IBug) : void {
+		let toggledBug = { ...bugToToggle, isClosed : !bugToToggle.isClosed};
+		this.bugs = this.bugs.map(bug => bug === bugToToggle ? toggledBug : bug);
 	}
 
 	private isOpen(bug){
 		return !bug.isClosed;
 	}
 
-	removeClosed(){
+	removeClosed() : void {
 		this.bugs = this.bugs.filter(this.isOpen);
 	}
 
-	getClosedCount(){
-		return this.bugs.reduce((prevResult, bug) => bug.isClosed ? ++prevResult : prevResult, 0)
-	}
-
+	
 }

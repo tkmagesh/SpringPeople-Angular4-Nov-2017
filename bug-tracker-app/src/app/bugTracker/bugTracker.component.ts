@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IBug } from './models/IBug';
+import { BugOperationsService } from './services/bugOperations.service';
 
 @Component({
 	selector : 'bug-tracker',
@@ -9,6 +10,8 @@ export class BugTrackerComponent{
 	bugs : IBug[] = [];
 	bugName : string = '';
 
+	//private bugOperations : BugOperationsService = null;
+
 	private loadBugs(){
 		this.bugs.push({ name : 'Server communication failure', isClosed : false});
 		this.bugs.push({ name : 'User actions not recognized', isClosed : false});
@@ -17,21 +20,19 @@ export class BugTrackerComponent{
 		this.bugs.push({ name : 'Authorization checks not stable', isClosed : false});
 	}
 
-	constructor(){
+	constructor(private bugOperations : BugOperationsService){
+		//this.bugOperations = bugOperations;
 		this.loadBugs();
 	}
 
 	addNew() : void {
-		let newBug : IBug = {
-			name : this.bugName,
-			isClosed : false
-		};
+		let newBug : IBug = this.bugOperations.createNew(this.bugName);
 		//this.bugs.push(newBug);
 		this.bugs = [...this.bugs, newBug];
 	}
 
 	toggle(bugToToggle : IBug) : void {
-		let toggledBug = { ...bugToToggle, isClosed : !bugToToggle.isClosed};
+		let toggledBug = this.bugOperations.toggle(bugToToggle);
 		this.bugs = this.bugs.map(bug => bug === bugToToggle ? toggledBug : bug);
 	}
 

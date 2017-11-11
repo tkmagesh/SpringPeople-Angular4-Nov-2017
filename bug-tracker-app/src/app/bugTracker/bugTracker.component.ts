@@ -43,7 +43,7 @@ export class BugTrackerComponent implements OnInit{
 			.forEach((bug, index) => 
 				this.bugServer
 					.remove(bug)
-					.subscribe(_ => this.bugs.splice(index, 1));
+					.subscribe(_ => this.bugs.splice(this.bugs.indexOf(bug), 1)));
 	}
 
 	

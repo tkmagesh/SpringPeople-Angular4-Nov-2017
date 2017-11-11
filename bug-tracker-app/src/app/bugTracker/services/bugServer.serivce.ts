@@ -17,6 +17,12 @@ export class BugServerService{
 			.map(response => response.json());
 	}
 
+	get(id : number) : Observable<IBug>{
+		return this.http
+			.get(`http://localhost:3000/bugs/${id}`)
+			.map(response => response.json());
+	}
+
 	toggle(bugToToggle) : Observable<IBug>{
 		let toggledBug = this.bugOperations.toggle(bugToToggle);
 		return this.http
